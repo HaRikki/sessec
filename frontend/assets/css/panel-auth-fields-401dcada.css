@@ -1,0 +1,8 @@
+.panel-password-field{position:relative;width:100%;min-width:0;box-sizing:border-box}
+.panel-password-field input:not([type=hidden]){width:100%;box-sizing:border-box;padding-right:82px!important}
+.panel-password-field .panel-password-toggle{position:absolute;right:4px;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;min-width:68px;min-height:40px;width:auto;margin:0;padding:6px 9px;border:0;border-radius:6px;background:transparent;color:#087fce;font:inherit;font-size:12px;font-weight:600;cursor:pointer;box-shadow:none}
+.panel-password-field .panel-password-toggle:hover{background:#edf6ff}
+.panel-password-field .panel-password-toggle:focus-visible{outline:2px solid #087fce;outline-offset:1px}
+.panel-password-field .panel-password-toggle:disabled{opacity:.5;cursor:default}
+body.theme-dark .panel-password-field .panel-password-toggle{color:#7ac5ff}
+body.theme-dark .panel-password-field .panel-password-toggle:hover{background:#24384a}

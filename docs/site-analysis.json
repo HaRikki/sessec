@@ -1,0 +1,149 @@
+{
+  "site_type": "E-commerce Frontend",
+  "title": "API documentation — sessec.com",
+  "language": "en",
+  "frameworks": [],
+  "palette": [],
+  "fonts": [],
+  "typography": {
+    "body_font": null,
+    "body_size": null,
+    "body_color": null,
+    "background": null,
+    "heading_font": null,
+    "h1_size": null
+  },
+  "breakpoints": [
+    360,
+    500,
+    600,
+    640,
+    700,
+    760,
+    767,
+    768,
+    900,
+    1100,
+    1199,
+    1500
+  ],
+  "uses_flex": true,
+  "uses_grid": true,
+  "responsive": true,
+  "nav": [
+    [
+      "Sign in",
+      "https://sessec.com/"
+    ],
+    [
+      "Services",
+      "https://sessec.com/services"
+    ],
+    [
+      "FAQ",
+      "https://sessec.com/faq"
+    ],
+    [
+      "Blog",
+      "https://sessec.com/blog"
+    ],
+    [
+      "Sign up",
+      "https://sessec.com/register"
+    ],
+    [
+      "API",
+      "https://sessec.com/api"
+    ]
+  ],
+  "forms": [
+    {
+      "slug": "form-auth-login-1",
+      "page_url": "https://sessec.com/",
+      "action": "https://sessec.com/",
+      "method": "post",
+      "kind": "auth_login",
+      "has_password": true,
+      "fields": [
+        {
+          "name": "username",
+          "type": "text",
+          "required": true,
+          "label": "Username or email",
+          "maxlength": null,
+          "options": []
+        },
+        {
+          "name": "password",
+          "type": "password",
+          "required": true,
+          "label": "Password",
+          "maxlength": null,
+          "options": []
+        }
+      ]
+    },
+    {
+      "slug": "register-auth-register-1",
+      "page_url": "https://sessec.com/register",
+      "action": "https://sessec.com/register",
+      "method": "post",
+      "kind": "auth_register",
+      "has_password": true,
+      "fields": [
+        {
+          "name": "username",
+          "type": "text",
+          "required": true,
+          "label": "Username",
+          "maxlength": 32,
+          "options": []
+        },
+        {
+          "name": "email",
+          "type": "email",
+          "required": true,
+          "label": "Email",
+          "maxlength": 255,
+          "options": []
+        },
+        {
+          "name": "password",
+          "type": "password",
+          "required": true,
+          "label": "Password",
+          "maxlength": null,
+          "options": []
+        },
+        {
+          "name": "password2",
+          "type": "password",
+          "required": true,
+          "label": "Repeat password",
+          "maxlength": null,
+          "options": []
+        }
+      ]
+    },
+    {
+      "slug": "forgot-password-generic-1",
+      "page_url": "https://sessec.com/forgot-password",
+      "action": "https://sessec.com/forgot-password",
+      "method": "post",
+      "kind": "generic",
+      "has_password": false,
+      "fields": [
+        {
+          "name": "email",
+          "type": "email",
+          "required": true,
+          "label": "Email",
+          "maxlength": 255,
+          "options": []
+        }
+      ]
+    }
+  ],
+  "api_endpoints": [],
+  "page_count": 30
+}

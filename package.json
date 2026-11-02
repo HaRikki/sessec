@@ -1,0 +1,16 @@
+{
+  "name": "sessec-com",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reconstructed website project",
+  "main": "server.js",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "serve:frontend": "npx --yes http-server frontend -p 8080 -c-1",
+    "start:backend": "python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000",
+    "test": "python -m pytest tests"
+  }
+}

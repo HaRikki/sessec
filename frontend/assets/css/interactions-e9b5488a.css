@@ -1,0 +1,5 @@
+/* Pointer-only visual feedback: preserve selected tabs, text selection and
+   keyboard focus. Applies to storefront/preview, never the admin shell. */
+.aw-theme, .aw-theme * {-webkit-tap-highlight-color:transparent}
+.aw-theme[data-aw-pointer-focus] :focus {outline:none!important;box-shadow:none!important}
+.aw-theme :is(a,button,summary,select,[tabindex]):focus:not(:focus-visible) {outline:none!important;box-shadow:none!important}

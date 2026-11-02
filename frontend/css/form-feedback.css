@@ -1,0 +1,5 @@
+/* Feedback styles for reconstructed forms */
+.clone-form-message { margin-top: .75rem; padding: .6rem .8rem; border-radius: 6px; font-size: .95rem; }
+.clone-form-message:empty { display: none; }
+.clone-form-message.clone-ok { background: #e7f6ec; color: #14532d; border: 1px solid #86d3a0; }
+.clone-form-message.clone-error { background: #fdecea; color: #7f1d1d; border: 1px solid #f1a9a0; }

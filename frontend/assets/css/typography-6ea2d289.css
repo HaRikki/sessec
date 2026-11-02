@@ -1,0 +1,43 @@
+/* Shared readable type scale; preserves editable theme colors and headings. */
+.aw-theme { font-size:16px; line-height:1.5; }
+.aw-theme .field label,
+.aw-theme .btn,
+.aw-theme .register-submit,
+.aw-theme .svc-select-btn,
+.aw-theme .svc-pick,
+.aw-theme .svc-pick-head,
+.aw-theme .status-tabs a,
+.aw-theme .aw-category-trigger,
+.aw-theme .aw-category-choice,
+.aw-theme .aw-public-menu a,
+.aw-theme .aw-account-nav,
+.aw-theme .aw-sidebar nav a { font-size:15px; line-height:1.5; }
+.aw-theme input:not([type=checkbox]):not([type=radio]):not([type=hidden]),
+.aw-theme select,
+.aw-theme textarea { font-size:16px; line-height:1.5; }
+.aw-theme .hint,
+.aw-theme small,
+.aw-theme .secondary,
+.aw-theme .badge,
+.aw-theme pre,
+.aw-theme code,
+.aw-theme .svc-menu-empty,
+.aw-theme .aw-footer,
+.aw-theme .aw-recovery,
+.aw-theme .aw-login-foot,
+.aw-theme .aw-feature-card p,
+.aw-theme .aw-steps-grid p,
+.aw-theme table.data,
+.aw-theme table.data th,
+.aw-theme table.data td,
+.aw-theme .aw-catalog-row { font-size:14px; line-height:1.5; }
+.aw-theme .aw-intro p,
+.aw-theme .aw-section-intro,
+.aw-theme .aw-feature-card h3,
+.aw-theme .aw-steps-grid h3,
+.aw-theme .aw-guidance-grid p { font-size:16px; }
+.aw-theme #svcInfo { font-size:14px !important; }
+.aw-theme #charge-preview { font-size:16px; }
+@media (max-width:767px) {
+  .aw-theme .aw-account-nav { font-size:14px; }
+}

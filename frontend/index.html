@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!-- Reconstructed by Universal Website Clone Bot from https://sessec.com/api on 2026-11-02. For use by the site owner or with the owner's permission. --><html lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>API documentation — sessec.com</title>
+<link href="assets/css/app-26866e65.css" rel="stylesheet"/>
+<link href="assets/css/active-aa8db741.css" rel="stylesheet"/>
+<link href="assets/css/interactions-e9b5488a.css" rel="stylesheet"/>
+<link href="assets/css/typography-6ea2d289.css" rel="stylesheet"/>
+
+
+
+<meta content="sessec.com: Read API request formats and integration examples for social media service orders." name="description"/><meta content="sessec.com: Read API request formats and integration examples for social media service orders." property="og:description"/><meta content="sessec.com: Read API request formats and integration examples for social media service orders." name="twitter:description"/><meta content="sessec.com, SMM panel, SMM API, API documentation, reseller API, integration examples" name="keywords"/></head>
+<body class="aw-theme aw-public">
+<header class="aw-public-header"><div class="aw-container aw-header-row">
+<a class="aw-brand" href="pages/home/index.html">sessec.com</a>
+<button aria-controls="aw-public-menu" aria-expanded="false" aria-label="Toggle navigation" class="aw-menu-toggle" data-aw-toggle="aw-public-menu" type="button"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
+<nav aria-label="Main navigation" class="aw-public-menu" id="aw-public-menu">
+<a href="pages/home/index.html">Sign in</a><a href="pages/services/index.html">Services</a><a href="pages/faq/index.html">FAQ</a>
+<a href="pages/blog/index.html">Blog</a>
+<a href="pages/register/index.html">Sign up</a><a href="index.html">API</a>
+</nav>
+</div></header>
+<style>
+.api-reference{width:auto;max-width:none;margin:12px 12px 36px;color:#222}
+.api-reference>h1{display:none}
+.api-ref-summary,.api-ref-section{min-width:0;padding:16px;border:1px solid #d4d4d4;border-radius:5px;background:#fff;box-shadow:none}
+.api-ref-summary{margin-bottom:24px}
+.api-ref-summary h1{margin:0 0 8px;padding:0 0 8px;border-bottom:1px solid #ddd;color:#222;font-size:18px;font-weight:500;line-height:1.35}
+.api-ref-summary>p{margin:8px 0 12px;color:#444;line-height:1.6}
+.api-ref-facts{display:block;margin:0}
+.api-ref-facts div{min-width:0;display:grid;grid-template-columns:minmax(180px,35%) minmax(0,1fr);gap:8px;padding:10px 14px;border-bottom:1px solid #ddd}
+.api-ref-facts div:nth-child(odd){background:#fbf3f1}
+.api-ref-facts dt{color:#222;font-size:14px}.api-ref-facts dd{min-width:0;margin:0;color:#222;font-size:14px;font-weight:400;overflow-wrap:anywhere}
+.api-ref-callout{margin-top:12px;padding:10px 14px;border:1px solid #ddd;border-radius:4px;background:#fff;color:#444;font-size:13px;line-height:1.6}
+.api-ref-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}.api-ref-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:8px 13px;border-radius:4px;background:#078fe8;color:#fff;font-size:13px;font-weight:600;text-decoration:none}.api-ref-actions a.secondary{background:#eee;color:#222}
+.api-ref-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:24px}
+.api-ref-section{min-width:0}.api-ref-section h2{margin:0 0 8px;padding:0 0 8px;border-bottom:1px solid #ddd;color:#222;font-size:18px;font-weight:500}.api-ref-section .api-action{margin:0 0 10px;color:#333;font-size:13px;font-weight:600}
+.api-ref-section>p{margin:8px 0;color:#444;font-size:14px;line-height:1.6}
+.api-ref-table-wrap{max-width:100%;overflow-x:auto;margin:10px 0}.api-ref-table{width:100%;border-collapse:collapse;font-size:14px}.api-ref-table th,.api-ref-table td{padding:9px 14px;border-bottom:1px solid #ddd;text-align:left;vertical-align:top}.api-ref-table th{background:#fff;color:#222;font-weight:700}.api-ref-table tbody tr:nth-child(odd){background:#fbf3f1}.api-ref-table td{color:#222}.api-ref-table code,.api-reference code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;overflow-wrap:anywhere;color:#222}
+.api-ref-code{max-width:100%;margin:10px 0 0;padding:16px;border-radius:5px;background:#505050;color:#fff;overflow:auto;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre}
+.api-example-tabs{display:flex;gap:4px;overflow-x:auto;margin:0 0 10px;border-bottom:1px solid #ddd}.api-example-tabs button{flex:none;padding:9px 13px;border:0;border-bottom:2px solid transparent;background:transparent;color:#555;font:inherit;font-size:14px;cursor:pointer}.api-example-tabs button[aria-selected="true"]{border-bottom-color:#078fe8;color:#087fce;font-weight:700}.api-example-panel[hidden]{display:none}.api-example-note{margin:8px 0;color:#666;font-size:13px;line-height:1.6}
+.api-ref-foot{margin:14px 2px 0;color:#666;font-size:12px;line-height:1.65}
+@media(max-width:760px){.api-reference{margin:10px 10px 26px}.api-ref-summary,.api-ref-section{padding:14px}.api-ref-facts div{grid-template-columns:38% minmax(0,1fr);padding:10px}.api-ref-grid{gap:16px}.api-ref-section h2{font-size:17px}.api-ref-table th,.api-ref-table td{padding:8px 9px;font-size:13px}}
+body.theme-dark .api-reference{color:#e3eaf2}body.theme-dark .api-ref-summary,body.theme-dark .api-ref-section{background:#202936;border-color:#465161}body.theme-dark .api-ref-summary h1,body.theme-dark .api-ref-section h2{color:#f0f4f8;border-color:#465161}body.theme-dark .api-ref-summary>p,body.theme-dark .api-ref-section>p,body.theme-dark .api-ref-table td,body.theme-dark .api-ref-facts dt,body.theme-dark .api-ref-facts dd{color:#d2dbe6}body.theme-dark .api-ref-facts div,body.theme-dark .api-ref-table th,body.theme-dark .api-ref-table td{border-color:#465161}body.theme-dark .api-ref-facts div:nth-child(odd),body.theme-dark .api-ref-table tbody tr:nth-child(odd){background:#27313e}body.theme-dark .api-ref-callout,body.theme-dark .api-ref-table th{background:#26384a;color:#d2dbe6}body.theme-dark .api-reference code{color:#d9eaff}
+</style>
+<style>
+.aw-theme .api-reference{max-width:1100px;margin:28px auto 40px;padding:0 20px;color:var(--aw-ink)}
+.aw-customer .api-reference{margin:0 auto 32px;padding:0}
+.aw-theme .api-ref-summary,.aw-theme .api-ref-section{padding:24px;border:1px solid #dfeaf8;border-radius:8px;background:#fff;box-shadow:0 2px 6px #10376105}
+.aw-theme .api-ref-summary{margin-bottom:20px}
+.aw-theme .api-ref-summary h1{font-size:24px;line-height:1.4;font-weight:700;color:var(--aw-ink);border-color:#e0ebf8;padding-bottom:16px;margin-bottom:16px}
+.aw-theme .api-ref-section h2{font-size:20px;line-height:1.4;font-weight:600;color:var(--aw-ink);border-color:#e0ebf8;padding-bottom:12px;margin-bottom:14px}
+.aw-theme .api-ref-summary>p,.aw-theme .api-ref-section>p{color:#61738a;font-size:14px;line-height:1.8}
+.aw-theme .api-ref-facts div{grid-template-columns:minmax(150px,28%) minmax(0,1fr);padding:12px 16px;border-color:#e0ebf8}
+.aw-theme .api-ref-facts div:nth-child(odd),.aw-theme .api-ref-table tbody tr:nth-child(odd){background:#f3f8ff}
+.aw-theme .api-ref-facts dt{font-weight:600;color:#17365c}
+.aw-theme .api-ref-facts dd,.aw-theme .api-ref-table td{color:#506780;line-height:1.6}
+.aw-theme .api-reference code{color:#204c83;font-size:13px}
+.aw-theme .api-ref-grid{gap:20px;margin-top:20px}
+.aw-theme .api-ref-section .api-action{color:#506780;font-weight:500}
+.aw-theme .api-ref-table-wrap{margin:16px 0;border:1px solid #e0ebf8;border-radius:6px}
+.aw-theme .api-ref-table th,.aw-theme .api-ref-table td{padding:12px 14px;border-color:#e0ebf8}
+.aw-theme .api-ref-table th{background:#eaf3ff;color:#17365c;font-size:14px;font-weight:600}
+.aw-theme .api-ref-table th:first-child{width:28%}
+.aw-theme .api-ref-table tbody tr:last-child td{border-bottom:0}
+.aw-theme .api-ref-code{padding:18px;border:1px solid #203f63;border-radius:6px;background:#132b49;color:#edf5ff;font-size:13px;line-height:1.75;tab-size:2;overscroll-behavior-x:contain}
+.aw-theme .api-ref-code code{color:inherit}
+.aw-theme .api-example-tabs{gap:6px;padding:4px;border:1px solid #dfeaf8;border-radius:6px;background:#f3f8ff;margin:16px 0 12px}
+.aw-theme .api-example-tabs button{padding:9px 15px;border:0;border-radius:4px;color:#506780;font-size:14px}
+.aw-theme .api-example-tabs button[aria-selected=true]{background:var(--aw-blue);color:#fff;font-weight:600}
+.aw-theme .api-example-tabs button:focus-visible{outline:2px solid var(--aw-blue);outline-offset:1px}
+.aw-theme .api-example-note,.aw-theme .api-ref-foot{color:#61738a;line-height:1.8}
+.aw-theme .api-ref-callout{border-color:#dfeaf8;background:#f3f8ff;color:#506780}
+.aw-theme .api-ref-actions a,.aw-theme .api-ref-actions a:visited{background:var(--aw-blue);color:#fff}
+.aw-theme .api-ref-actions a.secondary{background:#eaf3ff;color:#204c83}
+@media(max-width:650px){
+  .aw-theme .api-reference{padding:0 15px;margin:20px auto 28px}
+  .aw-customer .api-reference{padding:0;margin:0 auto 24px}
+  .aw-theme .api-ref-summary,.aw-theme .api-ref-section{padding:18px 15px}
+  .aw-theme .api-ref-summary h1{font-size:22px}
+  .aw-theme .api-ref-section h2{font-size:18px}
+  .aw-theme .api-ref-facts div{grid-template-columns:1fr;gap:5px;padding:11px 12px}
+  .aw-theme .api-ref-facts dt{font-size:13px}
+  .aw-theme .api-ref-facts dd{font-size:14px}
+  .aw-theme .api-ref-table th,.aw-theme .api-ref-table td{padding:10px;font-size:13px}
+  .aw-theme .api-ref-table th:first-child{width:32%}
+  .aw-theme .api-ref-code{padding:14px;font-size:12px}
+  .aw-theme .api-example-tabs button{padding:8px 12px;font-size:13px}
+}
+</style>
+<main class="api-reference">
+<section class="api-ref-summary">
+<h1>API Documentation</h1>
+<dl class="api-ref-facts">
+<div><dt>HTTP Method</dt><dd><code>POST</code></dd></div>
+<div><dt>API URL</dt><dd><code>https://sessec.com/api/v2</code></dd></div>
+<div><dt>API Key</dt><dd><a href="pages/register/index.html">Create an account, then generate an API key</a></dd></div>
+<div><dt>Response Format</dt><dd>JSON</dd></div>
+<div><dt>Content type</dt><dd><code>application/x-www-form-urlencoded</code></dd></div>
+<div><dt>Required fields</dt><dd><code>key</code> + <code>action</code></dd></div>
+</dl>
+</section>
+<section aria-labelledby="api-code-examples-title" class="api-ref-section">
+<h2 id="api-code-examples-title">Code Examples</h2>
+<p>Each example requests the service list using a form-encoded POST. Replace <code>YOUR_API_KEY</code> with your key and keep it private.</p>
+<div aria-label="Choose programming language" class="api-example-tabs" role="tablist">
+<button aria-controls="api-example-php" aria-selected="true" data-api-example-tab="php" id="api-tab-php" role="tab" type="button">PHP</button>
+<button aria-controls="api-example-curl" aria-selected="false" data-api-example-tab="curl" id="api-tab-curl" role="tab" type="button">cURL</button>
+<button aria-controls="api-example-python" aria-selected="false" data-api-example-tab="python" id="api-tab-python" role="tab" type="button">Python</button>
+<button aria-controls="api-example-java" aria-selected="false" data-api-example-tab="java" id="api-tab-java" role="tab" type="button">Java</button>
+<button aria-controls="api-example-node" aria-selected="false" data-api-example-tab="node" id="api-tab-node" role="tab" type="button">Node.js</button>
+</div>
+<div aria-labelledby="api-tab-php" class="api-example-panel" data-api-example-panel="php" id="api-example-php" role="tabpanel">
+<pre class="api-ref-code">&lt;?php
+$url = 'https://sessec.com/api/v2';
+$body = http_build_query(['key' =&gt; 'YOUR_API_KEY', 'action' =&gt; 'services']);
+$ch = curl_init($url);
+curl_setopt_array($ch, [CURLOPT_POST =&gt; true, CURLOPT_POSTFIELDS =&gt; $body, CURLOPT_RETURNTRANSFER =&gt; true]);
+$response = curl_exec($ch);
+if ($response === false) { throw new RuntimeException(curl_error($ch)); }
+curl_close($ch);
+print_r(json_decode($response, true));</pre>
+</div>
+<div aria-labelledby="api-tab-curl" class="api-example-panel" data-api-example-panel="curl" hidden="" id="api-example-curl" role="tabpanel">
+<pre class="api-ref-code">curl -X POST 'https://sessec.com/api/v2' -H 'Content-Type: application/x-www-form-urlencoded' --data-urlencode 'key=YOUR_API_KEY' --data-urlencode 'action=services'</pre>
+</div>
+<div aria-labelledby="api-tab-python" class="api-example-panel" data-api-example-panel="python" hidden="" id="api-example-python" role="tabpanel">
+<pre class="api-ref-code">import requests
+
+url = 'https://sessec.com/api/v2'
+response = requests.post(url, data={
+    'key': 'YOUR_API_KEY',
+    'action': 'services',
+}, timeout=30)
+response.raise_for_status()
+print(response.json())</pre>
+</div>
+<div aria-labelledby="api-tab-java" class="api-example-panel" data-api-example-panel="java" hidden="" id="api-example-java" role="tabpanel">
+<pre class="api-ref-code">import java.net.URI;
+import java.net.URLEncoder;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+
+String body = "key=" + URLEncoder.encode("YOUR_API_KEY", StandardCharsets.UTF_8)
+    + "&amp;action=services";
+HttpRequest request = HttpRequest.newBuilder(URI.create("https://sessec.com/api/v2"))
+    .header("Content-Type", "application/x-www-form-urlencoded")
+    .POST(HttpRequest.BodyPublishers.ofString(body)).build();
+HttpResponse&lt;String&gt; response = HttpClient.newHttpClient().send(
+    request, HttpResponse.BodyHandlers.ofString());
+System.out.println(response.body());</pre>
+</div>
+<div aria-labelledby="api-tab-node" class="api-example-panel" data-api-example-panel="node" hidden="" id="api-example-node" role="tabpanel">
+<p class="api-example-note">Node.js 18+ server-side example. Set <code>SMM_API_KEY</code> in the environment; do not expose it in browser code.</p>
+<pre class="api-ref-code">const endpoint = 'https://sessec.com/api/v2';
+
+async function main() {
+  const key = process.env.SMM_API_KEY;
+  if (!key) throw new Error('Set SMM_API_KEY first');
+
+  const body = new URLSearchParams({ key, action: 'services' });
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+  });
+  if (!response.ok) throw new Error(`HTTP ${response.status}`);
+  console.log(await response.json());
+}
+
+main().catch(console.error);</pre>
+</div>
+</section>
+<div class="api-ref-grid">
+<section class="api-ref-section" id="api-services">
+<h2>Service List</h2>
+<p class="api-action"><code>action=services</code> · POST fields</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>key</code></td><td><strong>Yes.</strong> Your personal API key</td></tr><tr><td><code>action</code></td><td><strong>Yes.</strong> Use exactly: services</td></tr>
+</tbody></table></div>
+<p><strong>Request example</strong></p><pre class="api-ref-code">curl -X POST 'https://sessec.com/api/v2' -d 'key=YOUR_API_KEY' -d 'action=services'</pre><p><strong>Example Response</strong></p><pre class="api-ref-code">[
+  { "service": 123, "name": "Followers", "category": "Social", "type": "default", "rate": "0.90", "min": 50, "max": 10000, "refill": true, "cancel": true }
+]</pre>
+</section>
+<section class="api-ref-section" id="api-add">
+<h2>Add order</h2>
+<p class="api-action"><code>action=add</code> · POST fields</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>service</code></td><td><strong>Yes.</strong> Numeric service ID from the service list</td></tr><tr><td><code>link</code></td><td><strong>Conditional.</strong> Target URL; use username for subscription orders</td></tr><tr><td><code>quantity</code></td><td><strong>Conditional.</strong> Required for quantity-based services; not used for package/subscription orders</td></tr><tr><td><code>comments</code></td><td><strong>Optional.</strong> Custom comments, one per line; required count must match quantity for custom-comments services</td></tr><tr><td><code>runs</code></td><td><strong>Optional.</strong> Drip-feed runs; must be greater than 1 to create a drip-feed order</td></tr><tr><td><code>interval</code></td><td><strong>Optional.</strong> Drip-feed interval in minutes; defaults to 60 if omitted</td></tr><tr><td><code>username</code></td><td><strong>Conditional.</strong> Required for subscription orders</td></tr><tr><td><code>min_qty / max_qty</code></td><td><strong>Conditional.</strong> Subscription quantity range</td></tr><tr><td><code>posts / old_posts / delay</code></td><td><strong>Optional.</strong> Subscription settings, where supported</td></tr><tr><td><code>expiry</code></td><td><strong>Optional.</strong> Subscription expiry date in DD/MM/YYYY format</td></tr><tr><td><code>answer_number</code></td><td><strong>Optional.</strong> Poll answer number, for poll services</td></tr>
+</tbody></table></div>
+<p><strong>PHP example</strong></p><pre class="api-ref-code">&lt;?php
+$order = $api-&gt;order(['service' =&gt; 123, 'link' =&gt; 'https://example.com/target', 'quantity' =&gt; 100]);</pre><p>Successful response varies by order type. Standard: <code>{order, link, quantity, charge, balance, currency}</code>. Drip-feed and subscription responses include <code>dripfeed</code> or <code>subscription</code> details.</p>
+</section>
+<section class="api-ref-section" id="api-status">
+<h2>Order status</h2>
+<p class="api-action"><code>action=status</code> · POST fields</p>
+<p>Use one of <code>order</code> or <code>orders</code>. For several IDs, send a comma-separated list.</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>order</code></td><td><strong>One.</strong> Single numeric order ID</td></tr><tr><td><code>orders</code></td><td><strong>One.</strong> Comma-separated order IDs for multiple status results</td></tr>
+</tbody></table></div>
+<p><strong>PHP example</strong></p><pre class="api-ref-code">&lt;?php
+$status = $api-&gt;status(456);
+$many = $api-&gt;multiStatus([456, 457]);</pre>
+</section>
+<section class="api-ref-section" id="api-balance">
+<h2>Balance</h2>
+<p class="api-action"><code>action=balance</code> · POST fields</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>key</code></td><td><strong>Yes.</strong> Your personal API key</td></tr><tr><td><code>action</code></td><td><strong>Yes.</strong> Use exactly: balance</td></tr>
+</tbody></table></div>
+<p><strong>PHP example</strong></p><pre class="api-ref-code">&lt;?php
+$balance = $api-&gt;balance();</pre>
+</section>
+<section class="api-ref-section" id="api-refill">
+<h2>Refill</h2>
+<p class="api-action"><code>action=refill</code> · POST fields</p>
+<p>Use one single-ID field or its plural field, not both. Refill is available only for eligible services and within the service’s refill window.</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>order</code></td><td><strong>One.</strong> Single eligible order ID</td></tr><tr><td><code>orders</code></td><td><strong>One.</strong> Comma-separated order IDs</td></tr>
+</tbody></table></div>
+<p><strong>PHP example</strong></p><pre class="api-ref-code">&lt;?php
+$refill = $api-&gt;refill(456);
+$many = $api-&gt;multiRefill([456, 457]);</pre>
+</section>
+<section class="api-ref-section" id="api-refill_status">
+<h2>Refill status</h2>
+<p class="api-action"><code>action=refill_status</code> · POST fields</p>
+<p>Use one single-ID field or its plural field, not both. Refill is available only for eligible services and within the service’s refill window.</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>refill</code></td><td><strong>One.</strong> Single refill request ID</td></tr><tr><td><code>refills</code></td><td><strong>One.</strong> Comma-separated refill request IDs</td></tr>
+</tbody></table></div>
+<p><strong>PHP example</strong></p><pre class="api-ref-code">&lt;?php
+$status = $api-&gt;refillStatus(12);
+$many = $api-&gt;multiRefillStatus([12, 13]);</pre>
+</section>
+<section class="api-ref-section" id="api-cancel">
+<h2>Cancel orders</h2>
+<p class="api-action"><code>action=cancel</code> · POST fields</p>
+<p>A cancellation request is not confirmation that provider work has stopped. The result reports whether the request was accepted; completed or ineligible orders cannot be canceled.</p>
+<div class="api-ref-table-wrap"><table class="api-ref-table"><thead><tr><th>Parameters</th><th>Description</th></tr></thead><tbody>
+<tr><td><code>orders</code></td><td><strong>Yes.</strong> Comma-separated numeric order IDs</td></tr>
+</tbody></table></div>
+<p><strong>PHP example</strong></p><pre class="api-ref-code">&lt;?php
+$result = $api-&gt;cancel([456, 457]);</pre>
+</section>
+<section class="api-ref-section" id="api-errors"><h2>Responses and errors</h2><p>Successful responses are JSON. Errors may include an invalid key (<code>401</code>), suspended account (<code>403</code>), unknown action (<code>400</code>), or an order validation error. Check the response before retrying so you do not create duplicate orders.</p><p>Service IDs and order IDs are numeric public IDs. Order status includes the current status, charge, start count, remaining quantity, and currency.</p></section>
+<section class="api-ref-section" id="api-security"><h2>Protect your API key</h2><p>Keep the key on your server, such as in an environment variable or secrets manager. Do not put it in a URL, frontend JavaScript, public repository, or screenshot. If exposed, generate a replacement from Account; the old key stops working.</p></section>
+</div>
+<p class="api-ref-foot">The documentation is public; account balances, orders, refills, and cancellation requests still require a valid API key.</p>
+<section class="api-ref-section" id="api-php-example-file" style="margin-top:20px">
+<h2>PHP example file</h2>
+<p>Open the PHP client example as plain text. Add your own API key on your server before using it.</p>
+<div class="api-ref-actions"><a href="https://sessec.com/api/example.txt" rel="noopener" target="_blank">example.txt</a></div>
+</section>
+</main>
+
+<footer class="aw-footer"><div class="aw-container"><span>© sessec.com. All rights reserved.</span><a href="pages/privacy/index.html">Terms</a></div></footer>
+
+
+</body></html>

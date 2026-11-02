@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Admin</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1c2430; --muted:#667085; --line:#e4e7ec; --accent:#2457d6; --danger:#c0392b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12151b; --card:#1b2029; --text:#e8ecf3; --muted:#98a2b3; --line:#2b3340; --accent:#6b93ff; --danger:#ff7b6b; } }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 system-ui,sans-serif; background:var(--bg); color:var(--text); }
+  header { display:flex; flex-wrap:wrap; gap:.75rem; align-items:center; padding:.9rem 1rem; background:var(--card); border-bottom:1px solid var(--line); }
+  header h1 { font-size:1.05rem; margin:0 auto 0 0; }
+  main { max-width:1100px; margin:0 auto; padding:1rem; }
+  nav { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1rem; }
+  button, input, textarea { font:inherit; color:inherit; }
+  button { cursor:pointer; border:1px solid var(--line); background:var(--card); padding:.4rem .8rem; border-radius:6px; }
+  button.primary, nav button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  button.danger { color:var(--danger); }
+  input, textarea { border:1px solid var(--line); background:var(--card); border-radius:6px; padding:.4rem .6rem; }
+  textarea { width:100%; min-height:220px; font-family:ui-monospace,monospace; font-size:13px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:1rem; margin-bottom:1rem; overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th, td { text-align:left; padding:.45rem .5rem; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; }
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.75rem; }
+  .stat b { display:block; font-size:1.6rem; }
+  .row { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; margin-bottom:.75rem; }
+  .msg { padding:.5rem .75rem; border-radius:6px; margin-bottom:.75rem; }
+  .msg.err { background:#fdecea; color:#7f1d1d; } .msg.ok { background:#e7f6ec; color:#14532d; }
+  .muted { color:var(--muted); } code, pre { font-family:ui-monospace,monospace; font-size:13px; }
+  pre { white-space:pre-wrap; word-break:break-word; margin:0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Admin panel</h1>
+  <input id="token" type="password" placeholder="ADMIN_TOKEN" autocomplete="off" size="26">
+  <button class="primary" id="connect">Connect</button>
+</header>
+<main>
+  <div id="msg"></div>
+  <nav id="tabs"></nav>
+  <section id="view" class="muted">Enter the admin token to continue.</section>
+</main>
+<script>
+(function () {
+  "use strict";
+  var token = "";
+  try { token = sessionStorage.getItem("admin_token") || ""; } catch (e) {}
+  var $ = function (id) { return document.getElementById(id); };
+  var TABS = ["Overview", "Submissions", "Users", "API snapshots", "Collections"];
+  var current = "Overview";
+  var collectionNames = [];
+
+  function el(tag, attrs, children) {
+    var n = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === "class") n.className = attrs[k];
+      else if (k === "text") n.textContent = attrs[k];
+      else if (k.indexOf("on") === 0) n.addEventListener(k.slice(2), attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    });
+    (children || []).forEach(function (c) { n.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return n;
+  }
+  function flash(text, ok) { var m = $("msg"); m.className = "msg " + (ok ? "ok" : "err"); m.textContent = text; if (ok) setTimeout(function () { m.textContent = ""; m.className = ""; }, 3000); }
+  function api(method, path, body) {
+    var opts = { method: method, headers: { "X-Admin-Token": token, "Accept": "application/json" } };
+    if (body !== undefined) { opts.headers["Content-Type"] = "application/json"; opts.body = JSON.stringify(body); }
+    return fetch(path, opts).then(function (res) {
+      if (res.status === 204) return null;
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        if (!res.ok) {
+          var d = data && data.detail;
+          throw new Error(typeof d === "string" ? d : (d && d.errors ? d.errors.join(" ") : "HTTP " + res.status));
+        }
+        return data;
+      });
+    });
+  }
+  function table(headers, rows) {
+    var t = el("table", {}, [el("thead", {}, [el("tr", {}, headers.map(function (h) { return el("th", { text: h }); }))])]);
+    var tb = el("tbody"); rows.forEach(function (r) { tb.appendChild(r); }); t.appendChild(tb);
+    if (!rows.length) return el("p", { class: "muted", text: "Nothing here yet." });
+    return t;
+  }
+  function cell(content) { return el("td", {}, [content]); }
+  function text(s) { return document.createTextNode(String(s)); }
+  function view(node) { var v = $("view"); v.className = ""; v.textContent = ""; v.appendChild(node); }
+  function guard(p) { return p.catch(function (e) { flash(e.message, false); }); }
+
+  function renderTabs() {
+    var nav = $("tabs"); nav.textContent = "";
+    TABS.forEach(function (name) {
+      nav.appendChild(el("button", { text: name, class: name === current ? "on" : "", onclick: function () { current = name; show(); } }));
+    });
+  }
+
+  var screens = {
+    "Overview": function () {
+      return api("GET", "/api/admin/summary").then(function (s) {
+        collectionNames = s.collections || [];
+        var stats = el("div", { class: "stats" }, [
+          ["Submissions", s.submissions], ["Users", s.users], ["API snapshots", s.snapshots], ["Collections", collectionNames.length]
+        ].map(function (p) { return el("div", { class: "card stat" }, [el("b", { text: p[1] }), el("span", { class: "muted", text: p[0] })]); }));
+        view(stats);
+      });
+    },
+    "Submissions": function () {
+      return api("GET", "/api/admin/submissions").then(function (rows) {
+        view(el("div", { class: "card" }, [table(["ID", "Form", "Data", "Received", ""], rows.map(function (r) {
+          return el("tr", {}, [cell(text(r.id)), cell(text(r.form_slug)), cell(el("pre", { text: JSON.stringify(r.data, null, 1) })), cell(text(r.created_at)),
+            cell(el("button", { class: "danger", text: "Delete", onclick: function () { if (confirm("Delete submission " + r.id + "?")) guard(api("DELETE", "/api/admin/submissions/" + r.id).then(show)); } }))]);
+        }))]));
+      });
+    },
+    "Users": function () {
+      return api("GET", "/api/admin/users").then(function (rows) {
+        var id = el("input", { placeholder: "email / username" }), pw = el("input", { type: "password", placeholder: "password (min 8)" });
+        var form = el("div", { class: "card row" }, [id, pw, el("button", { class: "primary", text: "Create user", onclick: function () {
+          guard(api("POST", "/api/admin/users", { identity: id.value, password: pw.value }).then(function () { flash("User created", true); show(); }));
+        } })]);
+        var list = el("div", { class: "card" }, [table(["ID", "Identity", "Created", ""], rows.map(function (u) {
+          return el("tr", {}, [cell(text(u.id)), cell(text(u.identity)), cell(text(u.created_at)), cell(el("span", { class: "row" }, [
+            el("button", { text: "Reset password", onclick: function () { var p = prompt("New password (min 8 characters)"); if (p) guard(api("POST", "/api/admin/users/" + u.id + "/password", { password: p }).then(function () { flash("Password updated", true); })); } }),
+            el("button", { class: "danger", text: "Delete", onclick: function () { if (confirm("Delete user " + u.identity + "?")) guard(api("DELETE", "/api/admin/users/" + u.id).then(show)); } })]))]);
+        }))]);
+        view(el("div", {}, [form, list]));
+      });
+    },
+    "API snapshots": function () {
+      return api("GET", "/api/admin/snapshots").then(function (rows) {
+        view(el("div", { class: "card" }, [table(["ID", "Path", "Query", "Status", "Updated", ""], rows.map(function (s) {
+          return el("tr", {}, [cell(text(s.id)), cell(el("code", { text: s.path })), cell(el("code", { text: s.query })), cell(text(s.status)), cell(text(s.updated_at)),
+            cell(el("span", { class: "row" }, [el("button", { text: "Edit", onclick: function () { editSnapshot(s.id); } }),
+              el("button", { class: "danger", text: "Delete", onclick: function () { if (confirm("Delete this stored response?")) guard(api("DELETE", "/api/admin/snapshots/" + s.id).then(show)); } })]))]);
+        }))]));
+      });
+    },
+    "Collections": function () {
+      return api("GET", "/api/admin/summary").then(function (s) {
+        collectionNames = s.collections || [];
+        if (!collectionNames.length) { view(el("p", { class: "muted", text: "No collections were generated for this site." })); return; }
+        var box = el("div"); view(box);
+        collectionNames.forEach(function (name) {
+          fetch("/api/collections/" + encodeURIComponent(name)).then(function (r) { return r.json(); }).then(function (rows) {
+            var body = el("textarea", { placeholder: '{"field": "value"}' });
+            box.appendChild(el("div", { class: "card" }, [el("h3", { text: name }),
+              table(["ID", "Data", ""], rows.map(function (r) {
+                return el("tr", {}, [cell(text(r.id)), cell(el("pre", { text: JSON.stringify(r.data) })),
+                  cell(el("button", { class: "danger", text: "Delete", onclick: function () { if (confirm("Delete record " + r.id + "?")) guard(api("DELETE", "/api/collections/" + name + "/" + r.id).then(show)); } }))]);
+              })), body,
+              el("button", { class: "primary", text: "Add record", onclick: function () {
+                var data; try { data = JSON.parse(body.value); } catch (e) { flash("Invalid JSON", false); return; }
+                guard(api("POST", "/api/collections/" + encodeURIComponent(name), data).then(function () { flash("Record added", true); show(); }));
+              } })]));
+          });
+        });
+      });
+    }
+  };
+
+  function editSnapshot(id) {
+    guard(api("GET", "/api/admin/snapshots/" + id).then(function (s) {
+      var area = el("textarea"); area.value = JSON.stringify(s.body, null, 2);
+      view(el("div", { class: "card" }, [el("h3", { text: s.path + (s.query ? "?" + s.query : "") }), area,
+        el("div", { class: "row" }, [el("button", { class: "primary", text: "Save", onclick: function () {
+          var body; try { body = JSON.parse(area.value); } catch (e) { flash("Invalid JSON", false); return; }
+          guard(api("PUT", "/api/admin/snapshots/" + id, { body: body }).then(function () { flash("Saved", true); show(); }));
+        } }), el("button", { text: "Cancel", onclick: show })])]));
+    }));
+  }
+
+  function show() { renderTabs(); guard(screens[current]()); }
+  $("connect").addEventListener("click", function () {
+    token = $("token").value.trim();
+    try { sessionStorage.setItem("admin_token", token); } catch (e) {}
+    show();
+  });
+  if (token) { $("token").value = token; show(); }
+})();
+</script>
+</body>
+</html>
